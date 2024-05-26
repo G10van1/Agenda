@@ -64,7 +64,7 @@ Monte o banco de dados através do Entity Framework Migrations:
 ```
 dotnet-ef database update
 ```
-Se preferir pode inportar o script do banco localizado na pasta Database.
+Se preferir pode importar o script do banco localizado na pasta Database.
 
 ## Execução
 
