@@ -128,6 +128,7 @@ Infrastructure/: Contém classes de acesso ao banco de dados, migrations e valid
 - Entity Framevork;
 - Entity Framevork Migrations;
 - Banco de dados SQL Server;
+- Swagger;
 - Testes unitários e integração com XUnit;
 - FluentValidation;
 - Dependency Injection;
