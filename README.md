@@ -13,7 +13,7 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em s
 - [Node.js](https://nodejs.org/) (versão 14 ou superior)
 - [Vue CLI](https://cli.vuejs.org/)
 - [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
-- [Visual Studio](https://visualstudio.microsoft.com/) (recomendado) ou qualquer IDE de sua escolha para desenvolvimento C#
+- [Visual Studio 2022](https://visualstudio.microsoft.com/) (recomendado) ou qualquer IDE de sua escolha para desenvolvimento C#
 - [XUnit](https://xunit.net/)
 - [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
 
