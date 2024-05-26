@@ -161,6 +161,36 @@ namespace TestAgenda
         }
 
         [Fact]
+        public async System.Threading.Tasks.Task CreateReturnsBadRequestWhenPhoneIsInvalid()
+        {
+            // Arrange
+            var newContact = new Agenda.Infrastructure.Models.Contact { Name = "Phone Invalid", Phone = "O8176" };
+            var jsonContent = JsonConvert.SerializeObject(newContact);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            // Act
+            var response = await _httpClient.PostAsync("/Contact", content);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task CreateReturnsBadRequestWhenEmaileIsInvalid()
+        {
+            // Arrange
+            var newContact = new Agenda.Infrastructure.Models.Contact { Name = "Email Inválido", Email = "meuemail-myemail" };
+            var jsonContent = JsonConvert.SerializeObject(newContact);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            // Act
+            var response = await _httpClient.PostAsync("/Contact", content);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
         public async System.Threading.Tasks.Task GetByIdReturnsContactWhenContactExists()
         {
             // Arrange

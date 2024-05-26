@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Agenda.Context;
 using Agenda.Infrastructure.Models;
+using FluentValidation;
 
 namespace Agenda.Controllers
 {
@@ -9,10 +10,13 @@ namespace Agenda.Controllers
     public class TaskController : ControllerBase
     {
         private readonly AgendaContext _context;
+        
+        private readonly IValidator<Infrastructure.Models.Task> _taskValidator;
 
-        public TaskController(AgendaContext context)
+        public TaskController(AgendaContext context, IValidator<Infrastructure.Models.Task> taskValidator)
         {
             _context = context;
+            _taskValidator = taskValidator;
         }
 
         [HttpGet("{id}")]

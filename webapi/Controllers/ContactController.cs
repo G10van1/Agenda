@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Agenda.Context;
 using Agenda.Infrastructure.Models;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace Agenda.Controllers
 {
@@ -10,9 +12,12 @@ namespace Agenda.Controllers
     {
         private readonly AgendaContext _context;
 
-        public ContactController(AgendaContext context)
+        private readonly IValidator<Contact> _contactValidator;
+
+        public ContactController(AgendaContext context, IValidator<Contact> contactValidator)
         {
             _context = context;
+            _contactValidator = contactValidator;
         }
 
         [HttpGet("{id}")]
@@ -43,6 +48,13 @@ namespace Agenda.Controllers
         [HttpPost]
         public IActionResult Create(Infrastructure.Models.Contact Contact)
         {
+            ValidationResult result = _contactValidator.Validate(Contact);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             _context.Contacts.Add(Contact);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { id = Contact.Id }, Contact);
@@ -51,6 +63,13 @@ namespace Agenda.Controllers
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, Infrastructure.Models.Contact Contact)
         {
+            ValidationResult result = _contactValidator.Validate(Contact);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             var ContactDatabase = _context.Contacts.Find(id);
 
             if (ContactDatabase == null)
