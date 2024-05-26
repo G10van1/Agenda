@@ -131,5 +131,5 @@ Infrastructure/: Contém classes de acesso ao banco de dados, migrations e valid
 - Testes unitários e integração com XUnit;
 - FluentValidation;
 - Dependency Injection;
-- Componentes Vue.js
-- RESTFul web API
+- Componentes Vue.js;
+- RESTFul web API.
