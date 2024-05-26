@@ -99,9 +99,10 @@ Inicie a API:
 dotnet run
 ```
 
-A API estará disponível no endereço http://localhost:7266.
+A API estará disponível no endereço http://localhost:5223 ou https://localhost:7266.
 
 É possível usar a interface do Swagger para testar os endpoints através do link:
+http://localhost:5223/swagger/index.html ou
 https://localhost:7266/swagger/index.html
 
 ## Executando os Testes (TestAgenda)
