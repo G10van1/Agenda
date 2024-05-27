@@ -128,10 +128,13 @@ _httpClient.BaseAddress = new Uri("https://localhost:7266"); // Configurar para 
 
 ## Estrutura do Projeto
 
-Agenda-UI/: Contém o projeto Vue.js para a interface do usuário.
-WebAPI/: Contém o projeto da API RESTful desenvolvida em C# .NET 7.
-TestAgenda/: Contém o projeto de testes unitários utilizando XUnit.
-Infrastructure/: Contém classes de acesso ao banco de dados, migrations e validators.
+Agenda-UI: Contém o projeto Vue.js para a interface do usuário.
+
+WebAPI: Contém o projeto da API RESTful desenvolvida em C# .NET 7.
+
+TestAgenda: Contém o projeto de testes unitários utilizando XUnit.
+
+Infrastructure: Contém classes de acesso ao banco de dados, migrations e validators.
 
 ## Principais Features e Tecnologias
 - Entity Framevork;
