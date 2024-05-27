@@ -120,7 +120,7 @@ Se preferir pode usar o gerenciador de testes do Visual Studio.
 
 O projeto de testes está configurado para URL base "https://localhost:7266".
 
-Se o projeto WebAPI estiver rodando em outra URL será necessário alterar a configuração da URL base no construtor da classe de teste (UnitTestAgenda), conforme mostrado no código abaixo:
+Se o projeto WebAPI estiver rodando em outra URL, será necessário alterar a configuração da URL base no construtor da classe de teste (UnitTestAgenda), conforme mostrado no código abaixo:
 
 ```
 _httpClient.BaseAddress = new Uri("https://localhost:7266"); // Configurar para a URL do projeto WebAPI
