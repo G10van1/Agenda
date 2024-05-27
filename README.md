@@ -99,6 +99,8 @@ Inicie a API:
 dotnet run
 ```
 
+Outra opção é executar através do Visual Studio.
+
 A API estará disponível no endereço http://localhost:5223 ou https://localhost:7266.
 
 É possível usar a interface do Swagger para testar os endpoints através do link:
