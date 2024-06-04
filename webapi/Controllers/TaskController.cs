@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Agenda.Context;
 using Agenda.Infrastructure.Models;
 using FluentValidation;
+using Agenda.Infrastructure.Validators;
+using FluentValidation.Results;
 
 namespace Agenda.Controllers
 {
@@ -61,11 +63,12 @@ namespace Agenda.Controllers
         [HttpPost]
         public IActionResult Create(Infrastructure.Models.Task task)
         {
-            if (task.Date == DateTime.MinValue)
-                return BadRequest(new { Erro = "A data da tarefa não pode ser vazia" });
+            ValidationResult result = _taskValidator.Validate(task);
 
-            if (task.Date < DateTime.Now)
-                return BadRequest(new { Erro = "A data da tarefa não pode anterior a data atual" });
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
 
             _context.Tasks.Add(task);
             _context.SaveChanges();
@@ -80,8 +83,12 @@ namespace Agenda.Controllers
             if (taskDatabase == null)
                 return NotFound();
 
-            if (task.Date == DateTime.MinValue)
-                return BadRequest(new { Erro = "A data da task não pode ser vazia" });
+            ValidationResult result = _taskValidator.Validate(task);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
 
             taskDatabase.Title = task.Title;
             taskDatabase.Description = task.Description;            

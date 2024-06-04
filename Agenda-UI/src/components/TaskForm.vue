@@ -76,9 +76,15 @@
           }
           this.$router.push({ name: 'TaskList' });
         } catch (error) {
-            let msg = 'Erro ao salvar task: ';
-            console.error(msg, error);
-            this.message = msg + "Erro " + error.code + " " + error.message;
+          let msg = "Erro " + error.code + " ao salvar tarefa: ";
+          this.message = msg + error.message;
+          if (error.response && error.response.status === 400) {
+            this.message = msg;              
+            const serverErrors = error.response.data.errors;
+            Object.keys(serverErrors).forEach(key => {
+              this.message = this.message + " " + serverErrors[key][0] + "\n";
+            });
+          }
         }
       },
     },

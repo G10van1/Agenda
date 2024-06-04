@@ -17,6 +17,11 @@ namespace Agenda.Infrastructure.Validators
             RuleFor(task => task.Date)
                 .Must(date => date != DateTime.MinValue)
                 .WithMessage("O campo Date não pode ser vazio ou valor default.");
+            
+            RuleFor(task => task.Date)
+                .Must(date => date > DateTime.Now)
+                .When(task => task.Id == 0)
+                .WithMessage("O campo Date não pode ser menor que a data atual.");
 
             RuleFor(task => task.Status)
                 .Must(status => ((int)status) >= 0 || ((int)status) <= 3)

@@ -40,6 +40,35 @@ namespace TestAgenda
         }
 
         [Fact]
+        public async System.Threading.Tasks.Task UpdateTaskWhenTaskExists()
+        {
+            // Arrange
+            Agenda.Infrastructure.Models.Task task = new Agenda.Infrastructure.Models.Task();
+
+            var response = await _httpClient.GetAsync("/Task/GetAll");
+
+            Assert.True(response.IsSuccessStatusCode);
+
+            var tasks = await response.Content.ReadFromJsonAsync<List<Agenda.Infrastructure.Models.Task>>();
+
+            if (tasks != null && tasks.Count > 0)
+                task = tasks[^1];
+
+            task.Description = "Testando a agenda para uma tarefa atualizada.";
+
+            var jsonString = JsonConvert.SerializeObject(task);
+            StringContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            // Act
+            response = await _httpClient.PutAsync($"/Task/{task.Id}", content);
+            var item = await response.Content.ReadFromJsonAsync<Agenda.Infrastructure.Models.Task>();
+
+            // Assert
+            Assert.True(response.IsSuccessStatusCode);
+            Assert.Equal(200, (int)response.StatusCode);
+        }
+
+        [Fact]
         public async System.Threading.Tasks.Task GetByIdReturnsTaskWhenTaskExists()
         {
             // Arrange
@@ -159,6 +188,36 @@ namespace TestAgenda
             // Assert
             Assert.Equal(201, (int)response.StatusCode);
         }
+
+        [Fact]
+        public async System.Threading.Tasks.Task UpdateContactWhenContactExists()
+        {
+            // Arrange
+            Agenda.Infrastructure.Models.Contact contact = new Agenda.Infrastructure.Models.Contact();
+
+            var response = await _httpClient.GetAsync("/Contact/GetAll");
+
+            Assert.True(response.IsSuccessStatusCode);
+
+            var contacts = await response.Content.ReadFromJsonAsync<List<Agenda.Infrastructure.Models.Contact>>();
+
+            if (contacts != null && contacts.Count > 0)
+                contact = contacts[^1];
+
+            contact.Phone = "+5565998760000";
+
+            var jsonString = JsonConvert.SerializeObject(contact);
+            StringContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            // Act
+            response = await _httpClient.PutAsync($"/Contact/{contact.Id}", content);
+            var item = await response.Content.ReadFromJsonAsync<Agenda.Infrastructure.Models.Contact>();
+
+            // Assert
+            Assert.True(response.IsSuccessStatusCode);
+            Assert.Equal(200, (int)response.StatusCode);
+        }
+
 
         [Fact]
         public async System.Threading.Tasks.Task CreateReturnsBadRequestWhenPhoneIsInvalid()

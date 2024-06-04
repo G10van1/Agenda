@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h2>{{ Contact.id ? 'Editar Contato' : 'Inserir Contato' }}</h2>      
+      <h2>{{ contact.id ? 'Editar Contato' : 'Inserir Contato' }}</h2>      
       <p v-if="message" class="error-message">{{ message }}</p>
       <nav class="navigation">
         <button style="border-radius: 10px; padding: 10px 20px; margin: 0px 5px 5px 0px;" @click="goBack">        
@@ -14,18 +14,18 @@
       <form @submit.prevent="saveContact">
         <div>
           <label for="name">Nome:</label>
-          <input type="text" v-model="Contact.name" required />
+          <input type="text" v-model="contact.name" required />
         </div>
         <div>
           <label for="phone">Telefone:</label>
-          <textarea v-model="Contact.phone"></textarea>
+          <textarea v-model="contact.phone"></textarea>
         </div>
         <div>
           <label for="email">Email:</label>
-          <textarea v-model="Contact.email"></textarea>
+          <textarea v-model="contact.email"></textarea>
         </div>
         
-        <button style="border-radius: 10px;" type="submit">{{ Contact.id ? 'Atualizar' : 'Inserir' }}</button>
+        <button style="border-radius: 10px;" type="submit">{{ contact.id ? 'Atualizar' : 'Inserir' }}</button>
       </form>
     </div>
   </template>
@@ -36,20 +36,18 @@
   export default {
     data() {
       return {
-        Contact: {
+        contact: {
           id: 0,
-          title: '',
-          description: '',
-          date: new Date().toISOString(),
-
-          status: 0,
+          name: '',
+          phone: '',
+          email: '',
         },
         message: ''
       };
     },
     created() {
-      if (this.$route.params.Contact) {
-        this.Contact = { ...this.$route.params.Contact };
+      if (this.$route.params.contact) {
+        this.contact = { ...this.$route.params.contact };
       }
     },
     methods: {
@@ -61,16 +59,22 @@
       },
       async saveContact() {
         try {
-          if (this.Contact.id) {
-            await axios.put(`/Contact/${this.Contact.id}`, this.Contact);
+          if (this.contact.id) {
+            await axios.put(`/Contact/${this.contact.id}`, this.contact);
           } else {
-            await axios.post('/Contact', this.Contact);
+            await axios.post('/Contact', this.contact);
           }
           this.$router.push({ name: 'ContactList' });
         } catch (error) {
-            let msg = 'Erro ao salvar contato: ';
-            console.error(msg, error);
-            this.message = msg + "Erro " + error.code + " " + error.message;
+          let msg = "Erro " + error.code + " ao salvar contato: ";
+          this.message = msg + error.message;
+          if (error.response && error.response.status === 400) {
+            this.message = msg;              
+            const serverErrors = error.response.data.errors;
+            Object.keys(serverErrors).forEach(key => {
+              this.message = this.message + " " + serverErrors[key][0] + "\n";
+            });
+          }
         }
       },
     },
