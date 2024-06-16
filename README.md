@@ -38,7 +38,7 @@ Infrastructure: Contém classes de acesso ao banco de dados, migrations e valida
 - Dependency Injection;
 - Componentes Vue.js;
 - RESTFul web API.
-- 
+  
 ## Instalação
 
 ## Clonando o Repositório
