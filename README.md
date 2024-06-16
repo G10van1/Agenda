@@ -31,6 +31,7 @@ Infrastructure: Contém classes de acesso ao banco de dados, migrations e valida
 - Entity Framevork;
 - Entity Framevork Migrations;
 - Banco de dados SQL Server;
+- Autenticação JWT;
 - Swagger;
 - Testes unitários e integração com XUnit;
 - FluentValidation;
@@ -47,18 +48,6 @@ Clone este repositório em sua máquina local usando o comando:
 ```
 git clone https://github.com/G10van1/Agenda.git
 ```
-## Configuração do Frontend (Agenda-UI)
-Navegue até o diretório do projeto Agenda-UI:
-
-```
-cd Agenda-UI
-```
-Instale as dependências do projeto:
-
-```
-npm install
-```
-
 ## Configuração do Backend (WebAPI)
 
 Navegue até o diretório do projeto WebAPI:
@@ -71,7 +60,18 @@ Restaure as dependências do projeto:
 ```
 dotnet restore
 ```
+## Configuração do Frontend (Agenda-UI)
 
+Navegue até o diretório do projeto Agenda-UI:
+
+```
+cd Agenda-UI
+```
+Instale as dependências do projeto:
+
+```
+npm install
+```
 ## Configuraçâo do Banco de Dados SQL Server
 
 Navegue até o diretório do projeto Infrastructure:
@@ -92,7 +92,6 @@ Se preferir pode importar o script do banco localizado na pasta Database.
 ## Executando a API (WebAPI)
 
 Navegue até o diretório do projeto WebAPI:
-
 
 ```
 cd ../WebAPI
