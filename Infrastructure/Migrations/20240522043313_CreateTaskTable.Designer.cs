@@ -25,7 +25,7 @@ namespace webapi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Agenda.Models.Task", b =>
+            modelBuilder.Entity("Agenda.Infrastructure.Models.Task", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

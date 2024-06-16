@@ -4,9 +4,11 @@ using Agenda.Infrastructure.Models;
 using FluentValidation;
 using Agenda.Infrastructure.Validators;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Agenda.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class TaskController : ControllerBase

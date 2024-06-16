@@ -11,6 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "AgendaUI", "Agenda-UI\AgendaUI.esproj", "{0D4B85CA-68BB-4C8B-9772-540427289CCA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonSettings", "CommonSettings", "{F18CB378-FB21-4949-AEF3-259BA6DC1C84}"
+	ProjectSection(SolutionItems) = preProject
+		CommonSettings\appsettings.Development.json = CommonSettings\appsettings.Development.json
+		CommonSettings\appsettings.json = CommonSettings\appsettings.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,27 +1,68 @@
 using Agenda.Infrastructure.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Xunit;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace TestAgenda
-{ 
+{
     public class UnitTestAgenda
     {
         private readonly HttpClient _httpClient;
+        private readonly string TokenFilePath = "token.json";
+        private class TokenData
+        {
+            public string Token { get; set; }
+        }
+
         public UnitTestAgenda()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7266");
         }
 
+        private async System.Threading.Tasks.Task SetJwtTokenAsync(string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }        
+        
+        [Fact]
+        public async System.Threading.Tasks.Task Login()
+        {
+            // Arrange
+            var User = new User { UserName = "admin", Password = "admin" };
+            var jsonContent = JsonConvert.SerializeObject(User);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            // Act
+            var response = await _httpClient.PostAsync("/Auth/login", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var jsonDocument = JsonDocument.Parse(responseBody);
+                var token = jsonDocument.RootElement.GetProperty("token").GetString();
+                
+                await SetJwtTokenAsync(token);  
+            }
+
+            // Assert
+            Assert.Equal(200, (int)response.StatusCode);
+        }
+
         [Fact]
         public async System.Threading.Tasks.Task InsertRegisterAgendaTaskAsync()
         {
             // Arrange
+            await Login();
             var jsonString = JsonConvert.SerializeObject(new Agenda.Infrastructure.Models.Task
             {
                 Title = "Teste Agenda Base",
@@ -43,6 +84,8 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task UpdateTaskWhenTaskExists()
         {
             // Arrange
+            await Login();
+            await InsertRegisterAgendaTaskAsync();
             Agenda.Infrastructure.Models.Task task = new Agenda.Infrastructure.Models.Task();
 
             var response = await _httpClient.GetAsync("/Task/GetAll");
@@ -72,6 +115,8 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task GetByIdReturnsTaskWhenTaskExists()
         {
             // Arrange
+            await Login();
+            await InsertRegisterAgendaTaskAsync();
             int taskId = 0;
             var response = await _httpClient.GetAsync("/Task/GetAll");
 
@@ -97,6 +142,7 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task GetByIdReturnsNotFoundWhenTaskDoesNotExist()
         {
             // Arrange
+            await Login();
             var taskId = -1;
 
             // Act
@@ -109,7 +155,11 @@ namespace TestAgenda
         [Fact]
         public async System.Threading.Tasks.Task GetAllReturnsAllTasks()
         {
+            // Arrange
+            await Login();
+
             // Act
+            await InsertRegisterAgendaTaskAsync();
             var response = await _httpClient.GetAsync("/Task/GetAll");
 
             // Assert
@@ -124,6 +174,7 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task CreateReturnsBadRequestWhenDateIsInvalid()
         {
             // Arrange
+            await Login();
             var newTask = new Agenda.Infrastructure.Models.Task { Title = "Invalid Task", Date = DateTime.MinValue };
             var jsonContent = JsonConvert.SerializeObject(newTask);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -139,6 +190,8 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task DeleteReturnsNoContentWhenTaskIsDeleted()
         {
             // Arrange
+            await Login();
+            await InsertRegisterAgendaTaskAsync();
             int taskId = 0;
             var response = await _httpClient.GetAsync("/Task/GetAll");
 
@@ -160,6 +213,7 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task DeleteReturnsNotFoundWhenTaskDoesNotExist()
         {
             // Arrange
+            await Login();
             var taskId = -1;
 
             // Act
@@ -173,6 +227,7 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task InsertRegisterAgendaContactAsync()
         {
             // Arrange
+            await Login();
             var jsonString = JsonConvert.SerializeObject(new Agenda.Infrastructure.Models.Contact
             {
                 Name = "Pedro Albuquerque",
@@ -193,6 +248,8 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task UpdateContactWhenContactExists()
         {
             // Arrange
+            await Login();
+            await InsertRegisterAgendaContactAsync();
             Agenda.Infrastructure.Models.Contact contact = new Agenda.Infrastructure.Models.Contact();
 
             var response = await _httpClient.GetAsync("/Contact/GetAll");
@@ -223,6 +280,7 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task CreateReturnsBadRequestWhenPhoneIsInvalid()
         {
             // Arrange
+            await Login();
             var newContact = new Agenda.Infrastructure.Models.Contact { Name = "Phone Invalid", Phone = "O8176" };
             var jsonContent = JsonConvert.SerializeObject(newContact);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -235,9 +293,10 @@ namespace TestAgenda
         }
 
         [Fact]
-        public async System.Threading.Tasks.Task CreateReturnsBadRequestWhenEmaileIsInvalid()
+        public async System.Threading.Tasks.Task CreateReturnsBadRequestWhenEmailIsInvalid()
         {
             // Arrange
+            await Login();
             var newContact = new Agenda.Infrastructure.Models.Contact { Name = "Email Inválido", Email = "meuemail-myemail" };
             var jsonContent = JsonConvert.SerializeObject(newContact);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -253,6 +312,8 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task GetByIdReturnsContactWhenContactExists()
         {
             // Arrange
+            await Login();
+            await InsertRegisterAgendaContactAsync();
             int contactId = 0;
             var response = await _httpClient.GetAsync("/Contact/GetAll");
 
@@ -278,6 +339,7 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task GetByIdReturnsNotFoundWhenContactDoesNotExist()
         {
             // Arrange
+            await Login();
             var contactId = -1;
 
             // Act
@@ -290,7 +352,11 @@ namespace TestAgenda
         [Fact]
         public async System.Threading.Tasks.Task GetAllReturnsAllContacts()
         {
+            // Arrange
+            await Login();
+
             // Act
+            await InsertRegisterAgendaContactAsync();
             var response = await _httpClient.GetAsync("/Contact/GetAll");
 
             // Assert
@@ -305,6 +371,8 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task DeleteReturnsNoContentWhenContactIsDeleted()
         {
             // Arrange
+            await Login();
+            await InsertRegisterAgendaContactAsync();
             int contactId = 0;
             var response = await _httpClient.GetAsync("/Contact/GetAll");
 
@@ -326,6 +394,7 @@ namespace TestAgenda
         public async System.Threading.Tasks.Task DeleteReturnsNotFoundWhenContactDoesNotExist()
         {
             // Arrange
+            await Login();
             var contactId = -1;
 
             // Act

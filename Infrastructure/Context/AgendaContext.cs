@@ -13,5 +13,6 @@ namespace Agenda.Context
 
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

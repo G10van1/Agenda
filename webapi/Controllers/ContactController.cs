@@ -3,9 +3,11 @@ using Agenda.Context;
 using Agenda.Infrastructure.Models;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Agenda.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ContactController : ControllerBase
