@@ -127,9 +127,12 @@ npm run serve
 
 Acesse a aplicação no seu navegador através do endereço http://localhost:8080.
 
-Quando clicar qualquer um dos ítens se ainda não está logado, deverá aparecer a tela de login. Para logar usar as seguintes credenciais:
+Ao clicar em qualquer um dos ítens, caso ainda não esteja logado, aparecerá a tela de login. 
+
+Para fazer o login usar as seguintes credenciais:
 
 Usuário: admin
+
 Senha: admin
 
 ## Executando os Testes (TestAgenda)
