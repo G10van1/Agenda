@@ -17,6 +17,27 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em s
 - [XUnit](https://xunit.net/)
 - [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
 
+## Projetos da Solução
+
+Agenda-UI: Contém o projeto Vue.js para a interface do usuário.
+
+WebAPI: Contém o projeto da API RESTful desenvolvida em C# .NET 7.
+
+TestAgenda: Contém o projeto de testes unitários utilizando XUnit.
+
+Infrastructure: Contém classes de acesso ao banco de dados, migrations e validators.
+
+## Principais Features e Tecnologias
+- Entity Framevork;
+- Entity Framevork Migrations;
+- Banco de dados SQL Server;
+- Swagger;
+- Testes unitários e integração com XUnit;
+- FluentValidation;
+- Dependency Injection;
+- Componentes Vue.js;
+- RESTFul web API.
+- 
 ## Instalação
 
 ## Clonando o Repositório
@@ -68,22 +89,6 @@ Se preferir pode importar o script do banco localizado na pasta Database.
 
 ## Execução
 
-Executando a Aplicação Web (Agenda-UI)
-
-Navegue até o diretório do projeto Agenda-UI:
-
-```
-cd Agenda-UI
-```
-
-Inicie o servidor de desenvolvimento:
-
-```
-npm run serve
-```
-
-Acesse a aplicação no seu navegador através do endereço http://localhost:8080.
-
 ## Executando a API (WebAPI)
 
 Navegue até o diretório do projeto WebAPI:
@@ -107,6 +112,27 @@ A API estará disponível no endereço http://localhost:5223 ou https://localhos
 http://localhost:5223/swagger/index.html ou
 https://localhost:7266/swagger/index.html
 
+## Executando a Aplicação Web (Agenda-UI)
+
+Navegue até o diretório do projeto Agenda-UI:
+
+```
+cd Agenda-UI
+```
+
+Inicie o servidor de desenvolvimento:
+
+```
+npm run serve
+```
+
+Acesse a aplicação no seu navegador através do endereço http://localhost:8080.
+
+Quando clicar qualquer um dos ítens se ainda não está logado, deverá aparecer a tela de login. Para logar usar as seguintes credenciais:
+
+Usuário: admin
+Senha: admin
+
 ## Executando os Testes (TestAgenda)
 
 Navegue até o diretório do projeto TestAgenda:
@@ -128,23 +154,4 @@ Se o projeto WebAPI estiver rodando em outra URL, será necessário alterar a co
 _httpClient.BaseAddress = new Uri("https://localhost:7266"); // Configurar para a URL do projeto WebAPI
 ```
 
-## Estrutura do Projeto
 
-Agenda-UI: Contém o projeto Vue.js para a interface do usuário.
-
-WebAPI: Contém o projeto da API RESTful desenvolvida em C# .NET 7.
-
-TestAgenda: Contém o projeto de testes unitários utilizando XUnit.
-
-Infrastructure: Contém classes de acesso ao banco de dados, migrations e validators.
-
-## Principais Features e Tecnologias
-- Entity Framevork;
-- Entity Framevork Migrations;
-- Banco de dados SQL Server;
-- Swagger;
-- Testes unitários e integração com XUnit;
-- FluentValidation;
-- Dependency Injection;
-- Componentes Vue.js;
-- RESTFul web API.
