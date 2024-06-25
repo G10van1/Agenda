@@ -1,3 +1,5 @@
+[\[English\]](README.md) [\[Português\]](#Agenda)
+_______________________________________________________________________________________________________________________________________
 # Agenda
 
 Este repositório contém uma aplicação completa para gerenciar uma agenda de contatos e tarefas, composta por três principais projetos:
