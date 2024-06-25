@@ -1,159 +1,159 @@
 # Agenda
 
-Este repositório contém uma aplicação completa para gerenciar uma agenda de contatos e tarefas, composta por três principais projetos:
+This repository contains a complete application for managing a contact and task calendar, consisting of three main projects:
 
-- **Agenda-UI**: Interface do usuário desenvolvida em Vue.js.
-- **WebAPI**: API RESTful desenvolvida em C# .NET 7.
-- **TestAgenda**: Projeto de testes unitários utilizando XUnit.
+- **Agenda-UI**: User interface in Vue.js.
+- **WebAPI**: API RESTful in C# .NET 7.
+- **TestAgenda**: Unit tests using XUnit.
 
-## Requisitos
+## Requirements
 
-Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em seu ambiente:
+Before you begin, make sure you have the following tools installed in your environment:
 
-- [Node.js](https://nodejs.org/) (versão 14 ou superior)
+- [Node.js](https://nodejs.org/) (version 14 or higher)
 - [Vue CLI](https://cli.vuejs.org/)
 - [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) (recomendado) ou qualquer IDE de sua escolha para desenvolvimento C#
+- [Visual Studio 2022](https://visualstudio.microsoft.com/) (recommended) or any IDE of your choice for C# development
 - [XUnit](https://xunit.net/)
 - [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
 
-## Projetos da Solução
+## Solution Projects
 
-Agenda-UI: Contém o projeto Vue.js para a interface do usuário.
+Agenda-UI: Contains the Vue.js project for the user interface.
 
-WebAPI: Contém o projeto da API RESTful desenvolvida em C# .NET 7.
+WebAPI: Contains the RESTful API project developed in C# .NET 7.
 
-TestAgenda: Contém o projeto de testes unitários utilizando XUnit.
+TestAgenda: Contains the unit testing project using XUnit.
 
-Infrastructure: Contém classes de acesso ao banco de dados, migrations e validators.
+Infrastructure: Contains database access classes, migrations and validators.
 
-## Principais Features e Tecnologias
+## Main Features and Technologies
 - Entity Framevork;
 - Entity Framevork Migrations;
-- Banco de dados SQL Server;
-- Autenticação JWT;
+- SQL Server database;
+- JWT authentication;
 - Swagger;
-- Testes unitários e integração com XUnit;
+- Unit and integration tests in XUnit;
 - FluentValidation;
 - Dependency Injection;
-- Componentes Vue.js;
+- Vue.js components;
 - RESTFul web API.
   
-## Instalação
+## Installation
 
-## Clonando o Repositório
+## Cloning the Repository
 
-Clone este repositório em sua máquina local usando o comando:
+Clone this repository to your local machine using the command:
 
 ```
 git clone https://github.com/G10van1/Agenda.git
 ```
-## Configuração do Backend (WebAPI)
+## Backend Configuration (WebAPI)
 
-Navegue até o diretório do projeto WebAPI:
+Navigate to the WebAPI project directory:
 
 ```
 cd ../WebAPI
 ```
-Restaure as dependências do projeto:
+Restore project dependencies:
 
 ```
 dotnet restore
 ```
-## Configuração do Frontend (Agenda-UI)
+## Frontend Configuration (Agenda-UI)
 
-Navegue até o diretório do projeto Agenda-UI:
+Navigate to the Agenda-UI project directory:
 
 ```
 cd Agenda-UI
 ```
-Instale as dependências do projeto:
+Install project dependencies:
 
 ```
 npm install
 ```
-## Configuraçâo do Banco de Dados SQL Server
+## SQL Server Database Configuration
 
-Navegue até o diretório do projeto Infrastructure:
+Navigate to the Infrastructure project directory:
 
 ```
 cd ../Infrastructure
 ```
-Certifique-se de que o serviço do SQL Server está ativo, pode ser usado o Microsoft SQL Server Management Studio.
-Monte o banco de dados através do Entity Framework Migrations:
+Make sure the SQL Server service is active, Microsoft SQL Server Management Studio can be used.
+Mount the database through Entity Framework Migrations:
 
 ```
 dotnet-ef database update
 ```
-Se preferir pode importar o script do banco localizado na pasta Database.
+If you prefer, you can import the database script located in the Database folder.
 
-## Execução
+## Execution
 
-## Executando a API (WebAPI)
+## Running the API (WebAPI)
 
-Navegue até o diretório do projeto WebAPI:
+Navigate to the WebAPI project directory:
 
 ```
 cd ../WebAPI
 ```
 
-Inicie a API:
+Start the API:
 
 ```
 dotnet run
 ```
 
-Outra opção é executar através do Visual Studio.
+Another option is to run through Visual Studio.
 
-A API estará disponível no endereço http://localhost:5223 ou https://localhost:7266.
+The API will be available at http://localhost:5223 or https://localhost:7266.
 
-É possível usar a interface do Swagger para testar os endpoints através do link:
+You can use the Swagger interface to test endpoints via the link:
 http://localhost:5223/swagger/index.html ou
 https://localhost:7266/swagger/index.html
 
-## Executando a Aplicação Web (Agenda-UI)
+## Running the Web Application (Agenda-UI)
 
-Navegue até o diretório do projeto Agenda-UI:
+Navigate to the Agenda-UI project directory:
 
 ```
 cd Agenda-UI
 ```
 
-Inicie o servidor de desenvolvimento:
+Start the development server:
 
 ```
 npm run serve
 ```
 
-Acesse a aplicação no seu navegador através do endereço http://localhost:8080.
+Access the application in your browser at http://localhost:8080.
 
-Ao clicar em qualquer um dos ítens, caso ainda não esteja logado, aparecerá a tela de login. 
+When clicking on any of the items, if you are not already logged in, the login screen will appear.
 
-Para fazer o login usar as seguintes credenciais:
+To log in use the following credentials:
 
-Usuário: admin
+User: admin
 
-Senha: admin
+Password: admin
 
-## Executando os Testes (TestAgenda)
+## Running the Tests (TestAgenda)
 
-Navegue até o diretório do projeto TestAgenda:
+Navigate to the TestAgenda project directory:
 
 ```
 cd ../TestAgenda
 ```
-Execute os testes:
+Run the tests:
 ```
 dotnet test
 ```
-Se preferir pode usar o gerenciador de testes do Visual Studio.
+If you prefer, you can use the Visual Studio test manager.
 
-O projeto de testes está configurado para URL base "https://localhost:7266".
+The test project is configured for base URL "https://localhost:7266".
 
-Se o projeto WebAPI estiver rodando em outra URL, será necessário alterar a configuração da URL base no construtor da classe de teste (UnitTestAgenda), conforme mostrado no código abaixo:
+If the WebAPI project is running on another URL, it will be necessary to change the base URL configuration in the test class constructor (UnitTestAgenda), as shown in the code below:
 
 ```
-_httpClient.BaseAddress = new Uri("https://localhost:7266"); // Configurar para a URL do projeto WebAPI
+_httpClient.BaseAddress = new Uri("https://localhost:7266"); //Configure for the WebAPI project URL
 ```
 
 
