@@ -110,8 +110,7 @@ Another option is to run through Visual Studio.
 The API will be available at http://localhost:5223 or https://localhost:7266.
 
 You can use the Swagger interface to test endpoints via the link:
-http://localhost:5223/swagger/index.html ou
-https://localhost:7266/swagger/index.html
+http://localhost:5223/swagger/index.html or https://localhost:7266/swagger/index.html
 
 ## Running the Web Application (Agenda-UI)
 
@@ -131,7 +130,7 @@ Access the application in your browser at http://localhost:8080.
 
 When clicking on any of the items, if you are not already logged in, the login screen will appear.
 
-To log in use the following credentials:
+To log in use the following credential:
 
 User: admin
 
